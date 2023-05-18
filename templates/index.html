@@ -2,16 +2,41 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="apple-touch-icon" sizes="180x180" href="{{url_for('static', filename='icons/apple-touch-icon.png')}}"> 
-    <link rel="icon" type="image/png" sizes="32x32" href="{{url_for('static', filename='icons/favicon-32x32.png')}}">
-    <link rel="icon" type="image/png" sizes="16x16" href="{{url_for('static', filename='icons/favicon-16x16.png')}}">
-    <link rel="manifest" href="{{url_for('static', filename='site.webmanifest')}}">
-    <link rel="mask-icon" href="{{url_for('static', filename='icons/safari-pinned-tab.svg')}}" color="#ff7e3c">
-    <meta name="apple-mobile-web-app-title" content="Imagine">
-    <meta name="application-name" content="Imagine">
-    <meta name="msapplication-TileColor" content="#ff7e3c">
-    <meta name="theme-color" content="#ff7e3c">
+    <meta name="viewport" content="width=device-width initial-scale=1.0" />
+    <meta
+      content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;"
+      name="viewport"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="{{url_for('static', filename='icons/apple-touch-icon.png')}}"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="{{url_for('static', filename='icons/favicon-32x32.png')}}"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="{{url_for('static', filename='icons/favicon-16x16.png')}}"
+    />
+    <link
+      rel="manifest"
+      href="{{url_for('static', filename='site.webmanifest')}}"
+    />
+    <link
+      rel="mask-icon"
+      href="{{url_for('static', filename='icons/safari-pinned-tab.svg')}}"
+      color="#ff7e3c"
+    />
+    <meta name="apple-mobile-web-app-title" content="Imagine" />
+    <meta name="application-name" content="Imagine" />
+    <meta name="msapplication-TileColor" content="#ff7e3c" />
+    <meta name="theme-color" content="#ff7e3c" />
     <title>Imagine</title>
     <style>
       :root {
@@ -28,6 +53,9 @@
         display: flex;
         height: 100vh;
         margin: 0;
+        position: relative;
+        overflow-x: hidden;
+        max-width: 100vw;
       }
 
       form {
@@ -141,6 +169,10 @@
         outline: 2px solid rgba(var(--accent-color), 1);
       }
 
+      .hidden {
+        display: none;
+      }
+
       label {
         color: #d2d2d2;
         text-transform: uppercase;
@@ -209,6 +241,28 @@
 
       button:hover {
         outline: 2px solid rgba(var(--accent-color), 1);
+      }
+
+      #hideButton {
+        width: 35px;
+        height: 35px;
+        position: absolute;
+        left: calc(100% - 35px / 2);
+        border-radius: 100%;
+        top: 10%;
+        outline: none;
+      }
+
+      #hideButtonIcon {
+        display: block;
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+
+      #generateForm {
+        position: relative;
       }
 
       #buttons {
@@ -284,10 +338,37 @@
         outline: 2px solid rgba(var(--accent-color), 1);
         transition: outline 0.1s;
       }
+
+      .cut {
+        clip-path: polygon(50% -100%, 200% 0%, 200% 200%, 50% 200%);
+      }
     </style>
   </head>
 
   <body>
+    <button
+      id="hideButton"
+      type="button"
+      style="right: calc(100% - 35px / 2); left: unset"
+      onclick="handleHideForm()"
+    >
+      <div style="position: relative; margin: 0">
+        <svg
+          id="hideButtonIcon"
+          xmlns="http://www.w3.org/2000/svg"
+          xmlns:xlink="http://www.w3.org/1999/xlink"
+          id="Layer_1"
+          style="enable-background: new 0 0 32 32"
+          version="1.1"
+          viewBox="0 0 32 32"
+          xml:space="preserve"
+        >
+          <path
+            d="M4,10h24c1.104,0,2-0.896,2-2s-0.896-2-2-2H4C2.896,6,2,6.896,2,8S2.896,10,4,10z M28,14H4c-1.104,0-2,0.896-2,2  s0.896,2,2,2h24c1.104,0,2-0.896,2-2S29.104,14,28,14z M28,22H4c-1.104,0-2,0.896-2,2s0.896,2,2,2h24c1.104,0,2-0.896,2-2  S29.104,22,28,22z"
+          />
+        </svg>
+      </div>
+    </button>
     <form id="generateForm">
       <label>Prompt <input type="text" name="prompt" /></label>
       <label>Negative Prompt <input type="text" name="negative" /></label>
@@ -308,7 +389,7 @@
           </div>
           {% endfor %}
         </div>
-        <select name="style" style="display: none;">
+        <select name="style" style="display: none">
           {% for style in styles %}
           <option value="{{style.name}}">{{style.name}}</option>
           {% endfor %}
@@ -354,6 +435,30 @@
             value="9.5"
         /></label>
       </div>
+
+      <button
+        id="hideButton"
+        type="button"
+        class="cut"
+        onclick="handleHideForm()"
+      >
+        <div style="position: relative; margin: 0">
+          <svg
+            id="hideButtonIcon"
+            xmlns="http://www.w3.org/2000/svg"
+            xmlns:xlink="http://www.w3.org/1999/xlink"
+            id="Layer_1"
+            style="enable-background: new 0 0 32 32"
+            version="1.1"
+            viewBox="0 0 32 32"
+            xml:space="preserve"
+          >
+            <path
+              d="M4,10h24c1.104,0,2-0.896,2-2s-0.896-2-2-2H4C2.896,6,2,6.896,2,8S2.896,10,4,10z M28,14H4c-1.104,0-2,0.896-2,2  s0.896,2,2,2h24c1.104,0,2-0.896,2-2S29.104,14,28,14z M28,22H4c-1.104,0-2,0.896-2,2s0.896,2,2,2h24c1.104,0,2-0.896,2-2  S29.104,22,28,22z"
+            />
+          </svg>
+        </div>
+      </button>
 
       <div id="buttons">
         <button type="submit" id="submitButton">Generate</button>
@@ -407,6 +512,19 @@
         const value = element.dataset.value;
         select.value = value;
         select.dispatchEvent(new Event("change"));
+      }
+
+      function handleHideForm() {
+        const form = document.getElementById("generateForm");
+        const hideButton = document.getElementById("hideButton");
+        const hideButtonIcon = document.getElementById("hideButtonIcon");
+
+        form.classList.toggle("hidden");
+        if (form.classList.contains("hidden")) {
+          hideButtonIcon.style.transform = "rotate(180deg)";
+        } else {
+          hideButtonIcon.style.transform = "rotate(0deg)";
+        }
       }
 
       // if resultimage src is not empty, show download button
@@ -481,10 +599,12 @@
         }
       });
 
-      downloadButton.addEventListener("click", () => {    
+      downloadButton.addEventListener("click", () => {
         const a = document.createElement("a");
         a.href = resultImage.src;
-        const filename = `imagine_${Date.now()}_${_formData.get("prompt").slice(0, 15)}_${_formData.get("style")}_${_formData.get("cfg")}.png`;
+        const filename = `imagine_${Date.now()}_${_formData
+          .get("prompt")
+          .slice(0, 15)}_${_formData.get("style")}_${_formData.get("cfg")}.png`;
         a.download = filename;
         document.body.appendChild(a);
         a.click();
