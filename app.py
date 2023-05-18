@@ -1,3 +1,4 @@
+import os
 from flask import Flask, render_template, request, send_file, make_response
 from imaginepy import Imagine, Style, Ratio
 import base64
@@ -41,7 +42,10 @@ def index():
         # high_res needs to be 0 or 1 for the api
         high_res = 1 if high_res else 0
 
-        img_data = imagine.sdprem(prompt=prompt, style=style, ratio=ratio, high_res_results=high_res, negative=negative, cfg=cfg)
+        # Generate random seed number that can go up to 999999999
+        seed = int.from_bytes(os.urandom(4), byteorder="big") % 999999999
+
+        img_data = imagine.sdprem(prompt=prompt, style=style, ratio=ratio, high_res_results=high_res, negative=negative, cfg=cfg, seed=seed)
 
         if upscale and img_data is not None:
             img_data = imagine.upscale(image=img_data)
