@@ -2,7 +2,7 @@
 
 A user-friendly and intuitive web application interface that allows you to seamlessly generate creative images using the power of AI. This web application utilizes the [Imaginepy](https://github.com/ItsCEED/Imaginepy) library by [@ItsCEED](https://github.com/ItsCEED/Imaginepy) for AI image generation.
 
-![Web capture_16-6-2023_19718_imagine](https://github.com/iGerman00/imagine-webui/assets/36676880/6ded7cc9-7573-4a5d-8c4c-244f063d8903)
+![Web capture_16-6-2023_19718_imagine](https://github.com/iGerman00/imagine-webui/assets/36676880/aaf636f2-a136-43c9-9403-239bd611e142)
 
 - **Friendly UI**
 - **Lightweight**
