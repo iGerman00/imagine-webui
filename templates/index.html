@@ -333,12 +333,12 @@
     }
 
     .styleCard {
-      margin: 0.5rem;
+      margin: 0.3rem;
       width: 100px;
       min-width: 100px;
       max-width: 100px;
       border-radius: 0.2rem;
-      border: 0px solid;
+      border: 2px solid transparent;
     }
 
     .styleCard img {
@@ -362,7 +362,6 @@
 
     .styleCard:hover {
       outline: 2px solid rgba(var(--accent-color), 1);
-      transition: outline 0.1s;
     }
 
     .cut {
@@ -488,11 +487,11 @@
         if (spans[i].dataset.value === select.value) {
           spans[i].style.color = "white";
           spans[i].style.fontWeight = "bold";
-          spans[i].parentElement.style.outline = "2px solid rgba(var(--accent-color), 0.5)";
+          spans[i].parentElement.style.border = "2px solid rgba(var(--accent-color), 0.5)";
         } else {
           spans[i].style.color = "rgba(255, 255, 255, 0.65)";
           spans[i].style.fontWeight = "normal";
-          spans[i].parentElement.style.outline = "none";
+          spans[i].parentElement.style.border = "2px solid transparent";
         }
       }
 
