@@ -34,6 +34,7 @@
     /* Chrome, Edge, and Safari */
     *::-webkit-scrollbar {
       width: 8px;
+      height: 8px;
     }
 
     *::-webkit-scrollbar-track {
@@ -42,7 +43,7 @@
 
     *::-webkit-scrollbar-thumb {
       background-color: #74777c;
-      border-radius: 10px;
+      border-radius: 8px;
     }
 
     body {
@@ -490,6 +491,8 @@
           spans[i].parentElement.style.outline = "2px solid rgba(var(--accent-color), 0.5)";
         } else {
           spans[i].style.color = "rgba(255, 255, 255, 0.65)";
+          spans[i].style.fontWeight = "normal";
+          spans[i].parentElement.style.outline = "none";
         }
       }
 
