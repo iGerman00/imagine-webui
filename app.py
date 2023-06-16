@@ -35,6 +35,7 @@ def index():
         negative = request.form["negative"]
         style = Style[request.form["style"]]
         ratio = Ratio[request.form["ratio"]]
+        steps = int(request.form["steps"]) 
         high_res = bool(request.form.get("high_res", False)) 
         upscale = bool(request.form.get("upscale", False))
         cfg = float(request.form["cfg"])
@@ -45,7 +46,7 @@ def index():
         # Generate random seed number that can go up to 999999999
         seed = int.from_bytes(os.urandom(4), byteorder="big") % 999999999
 
-        img_data = imagine.sdprem(prompt=prompt, style=style, ratio=ratio, high_res_results=high_res, negative=negative, cfg=cfg, seed=seed)
+        img_data = imagine.sdprem(prompt=prompt, style=style, ratio=ratio, high_res_results=high_res, negative=negative, cfg=cfg, seed=seed, priority=1, steps=steps)
 
         if upscale and img_data is not None:
             img_data = imagine.upscale(image=img_data)

@@ -1,615 +1,608 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width initial-scale=1.0" />
-    <meta
-      content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;"
-      name="viewport"
-    />
-    <link
-      rel="apple-touch-icon"
-      sizes="180x180"
-      href="{{url_for('static', filename='icons/apple-touch-icon.png')}}"
-    />
-    <link
-      rel="icon"
-      type="image/png"
-      sizes="32x32"
-      href="{{url_for('static', filename='icons/favicon-32x32.png')}}"
-    />
-    <link
-      rel="icon"
-      type="image/png"
-      sizes="16x16"
-      href="{{url_for('static', filename='icons/favicon-16x16.png')}}"
-    />
-    <link
-      rel="manifest"
-      href="{{url_for('static', filename='site.webmanifest')}}"
-    />
-    <link
-      rel="mask-icon"
-      href="{{url_for('static', filename='icons/safari-pinned-tab.svg')}}"
-      color="#ff7e3c"
-    />
-    <meta name="apple-mobile-web-app-title" content="Imagine" />
-    <meta name="application-name" content="Imagine" />
-    <meta name="msapplication-TileColor" content="#ff7e3c" />
-    <meta name="theme-color" content="#ff7e3c" />
-    <title>Imagine</title>
-    <style>
-      :root {
-        --accent-color: 255, 126, 60;
-        --accent-color-light: 255, 183, 97;
 
-        --primary: #1d1e20;
-        --secondary: #2d2e30;
-      }
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width initial-scale=1.0" />
+  <meta content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;" name="viewport" />
+  <link rel="apple-touch-icon" sizes="180x180" href="{{url_for('static', filename='icons/apple-touch-icon.png')}}" />
+  <link rel="icon" type="image/png" sizes="32x32" href="{{url_for('static', filename='icons/favicon-32x32.png')}}" />
+  <link rel="icon" type="image/png" sizes="16x16" href="{{url_for('static', filename='icons/favicon-16x16.png')}}" />
+  <link rel="manifest" href="{{url_for('static', filename='site.webmanifest')}}" />
+  <link rel="mask-icon" href="{{url_for('static', filename='icons/safari-pinned-tab.svg')}}" color="#ff7e3c" />
+  <meta name="apple-mobile-web-app-title" content="Imagine" />
+  <meta name="application-name" content="Imagine" />
+  <meta name="msapplication-TileColor" content="#ff7e3c" />
+  <meta name="theme-color" content="#ff7e3c" />
+  <title>Imagine</title>
+  <style>
+    :root {
+      --accent-color: 255, 126, 60;
+      --accent-color-light: 255, 183, 97;
 
-      body {
-        font-family: Arial, sans-serif;
-        background-color: var(--primary);
-        display: flex;
-        height: 100vh;
-        margin: 0;
-        position: relative;
-        overflow-x: hidden;
-        max-width: 100vw;
-      }
+      --primary: #1d1e20;
+      --secondary: #2d2e30;
+    }
 
-      form {
-        background: var(--secondary);
-        padding: 1.3rem;
-        display: flex;
-        flex-direction: column;
-        width: 15%;
-        min-width: 250px;
+    /* ===== Custom Scrollbar ===== */
+    /* Firefox */
+    * {
+      scrollbar-width: auto;
+      scrollbar-color: #74777c;
+    }
 
-        border-right: 1px solid rgba(var(--accent-color), 0.5);
-      }
+    /* Chrome, Edge, and Safari */
+    *::-webkit-scrollbar {
+      width: 8px;
+    }
 
-      form * {
-        display: flex;
-        flex-direction: column;
-        margin: 0.5rem 0;
-      }
+    *::-webkit-scrollbar-track {
+      opacity: 0;
+    }
 
-      .checkbox {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
+    *::-webkit-scrollbar-thumb {
+      background-color: #74777c;
+      border-radius: 10px;
+    }
 
-        justify-content: space-between;
-        color: #d2d2d2;
-      }
+    body {
+      font-family: Arial, sans-serif;
+      background-color: var(--primary);
+      display: flex;
+      height: 100vh;
+      margin: 0;
+      position: relative;
+      overflow-x: hidden;
+      max-width: 100vw;
+    }
 
-      form input[type="text"] {
-        background-color: var(--primary);
-        padding: 0.5rem;
+    form {
+      background: var(--secondary);
+      padding: 1.3rem;
+      display: flex;
+      flex-direction: column;
+      width: 15%;
+      min-width: 250px;
+      border-right: 1px solid rgba(var(--accent-color), 0.5);
+    }
 
-        border-radius: 0.2rem;
-        border: 0px solid;
-        color: #d2d2d2;
-        outline: 2px solid rgba(var(--accent-color), 0.5);
-        transition: outline 0.3s;
-      }
+    form * {
+      display: flex;
+      flex-direction: column;
+      margin: 0.5rem 0;
+    }
 
-      form input[type="text"]:hover {
-        outline: 2px solid rgba(var(--accent-color), 1);
-      }
+    .checkbox {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
 
-      select {
-        background-color: var(--primary);
-        padding: 0.5rem;
+      justify-content: space-between;
+      color: #d2d2d2;
+    }
 
-        color: #d2d2d2;
+    form input[type="text"] {
+      background-color: var(--primary);
+      padding: 0.5rem;
 
-        border-radius: 0.2rem;
-        border: 0px solid;
-        outline: 2px solid rgba(var(--accent-color), 0.5);
-        transition: outline 0.3s;
-      }
+      border-radius: 0.2rem;
+      border: 0px solid;
+      color: #d2d2d2;
+      outline: 2px solid rgba(var(--accent-color), 0.5);
+      transition: outline 0.3s;
+    }
 
-      form select:hover {
-        outline: 2px solid rgba(var(--accent-color), 1);
-      }
+    form input[type="text"]:hover {
+      outline: 2px solid rgba(var(--accent-color), 1);
+    }
 
-      form input[type="checkbox"] {
-        width: 1rem;
-        height: 1rem;
-        margin: 0;
-        padding: 0;
-        cursor: pointer;
-        appearance: none;
-        border-radius: 0.2rem;
-        border: 2px solid rgba(var(--accent-color), 0.5);
-        outline: 2px solid rgba(var(--accent-color), 0.5);
-        transition: outline 0.3s;
-      }
+    select {
+      background-color: var(--primary);
+      padding: 0.5rem;
 
-      form input[type="checkbox"]:hover {
-        outline: 2px solid rgba(var(--accent-color), 1);
-      }
+      color: #d2d2d2;
 
-      form input[type="checkbox"]:checked {
-        background-color: rgba(var(--accent-color), 1);
-        border: 2px solid rgba(var(--accent-color), 1);
-        outline: 2px solid rgba(var(--accent-color), 1);
-      }
+      border-radius: 0.2rem;
+      border: 0px solid;
+      outline: 2px solid rgba(var(--accent-color), 0.5);
+      transition: outline 0.3s;
+    }
 
-      form input[type="checkbox"]:checked:hover {
-        background-color: rgba(var(--accent-color), 1);
-        border: 2px solid rgba(var(--accent-color), 1);
-        outline: 2px solid rgba(var(--accent-color), 1);
-      }
+    form select:hover {
+      outline: 2px solid rgba(var(--accent-color), 1);
+    }
 
-      form input[type="range"] {
-        -webkit-appearance: none;
-        width: 100%;
-        height: 1rem;
-        background: var(--primary);
-        outline: 2px solid rgba(var(--accent-color), 0.5);
-        border-radius: 0.2rem;
-        cursor: pointer;
-        transition: outline 0.3s;
-      }
+    form input[type="checkbox"] {
+      width: 1rem;
+      height: 1rem;
+      margin: 0;
+      padding: 0;
+      cursor: pointer;
+      appearance: none;
+      border-radius: 0.2rem;
+      border: 2px solid rgba(var(--accent-color), 0.5);
+      outline: 2px solid rgba(var(--accent-color), 0.5);
+      transition: outline 0.3s;
+    }
 
-      form input[type="range"]::-webkit-slider-thumb {
-        -webkit-appearance: none;
-        appearance: none;
-        width: 1rem;
-        height: 1rem;
-        background: rgba(var(--accent-color), 1);
-        cursor: pointer;
-        border-radius: 0.2rem;
-      }
+    form input[type="checkbox"]:hover {
+      outline: 2px solid rgba(var(--accent-color), 1);
+    }
 
-      form input[type="range"]:hover {
-        outline: 2px solid rgba(var(--accent-color), 1);
-      }
+    form input[type="checkbox"]:checked {
+      background-color: rgba(var(--accent-color), 1);
+      border: 2px solid rgba(var(--accent-color), 1);
+      outline: 2px solid rgba(var(--accent-color), 1);
+    }
 
-      .hidden {
-        display: none;
-      }
+    form input[type="checkbox"]:checked:hover {
+      background-color: rgba(var(--accent-color), 1);
+      border: 2px solid rgba(var(--accent-color), 1);
+      outline: 2px solid rgba(var(--accent-color), 1);
+    }
 
-      label {
-        color: #d2d2d2;
-        text-transform: uppercase;
-        font-size: 1rem;
-        font-weight: 900;
-      }
+    form input[type="range"] {
+      -webkit-appearance: none;
+      width: 100%;
+      height: 1rem;
+      background: var(--primary);
+      outline: 2px solid rgba(var(--accent-color), 0.5);
+      border-radius: 0.2rem;
+      cursor: pointer;
+      transition: outline 0.3s;
+    }
 
-      #imageContainer {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        overflow: hidden;
-        position: relative;
-      }
+    form input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 1rem;
+      height: 1rem;
+      background: rgba(var(--accent-color), 1);
+      cursor: pointer;
+      border-radius: 0.2rem;
+    }
 
-      img {
-        transition: opacity 0.3s, filter 0.3s;
-        width: 100%;
-        height: 100%;
-        object-fit: contain;
-      }
+    form input[type="range"]:hover {
+      outline: 2px solid rgba(var(--accent-color), 1);
+    }
 
-      #content {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        width: 100%;
-      }
+    .hidden {
+      display: none;
+    }
 
-      #suspend {
-        opacity: 0.1;
-        z-index: -2;
-        position: absolute;
-        transition: opacity 0.3s;
-      }
+    label {
+      color: #d2d2d2;
+      text-transform: uppercase;
+      font-size: 1rem;
+      font-weight: 900;
+    }
 
-      #loader {
-        opacity: 0;
-        z-index: -1;
-        position: absolute;
-        transition: opacity 0.3s;
-      }
+    #imageContainer {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      position: relative;
+    }
 
-      button {
-        background-color: rgba(var(--accent-color));
-        padding: 0.5rem;
+    img {
+      transition: opacity 0.3s, filter 0.3s;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
 
-        border-radius: 0.2rem;
-        border: 0px solid;
-        outline: 2px solid rgba(var(--accent-color), 0.5);
-        transition: outline 0.3s;
+    #content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+    }
 
-        text-transform: uppercase;
-        font-size: 1rem;
-        font-weight: 900;
-        color: var(--primary);
+    #suspend {
+      opacity: 0.1;
+      z-index: -2;
+      position: absolute;
+      transition: opacity 0.3s;
+    }
 
-        display: flex;
-        align-items: center;
-        justify-content: center;
+    #loader {
+      opacity: 0;
+      z-index: -1;
+      position: absolute;
+      transition: opacity 0.3s;
+    }
 
-        cursor: pointer;
-      }
+    button {
+      background-color: rgba(var(--accent-color));
+      padding: 0.5rem;
 
-      button:hover {
-        outline: 2px solid rgba(var(--accent-color), 1);
-      }
+      border-radius: 0.2rem;
+      border: 0px solid;
+      outline: 2px solid rgba(var(--accent-color), 0.5);
+      transition: outline 0.3s;
 
-      #hideButton {
-        width: 35px;
-        height: 35px;
-        position: absolute;
-        left: calc(100% - 35px / 2);
-        border-radius: 100%;
-        top: 10%;
-        outline: none;
-      }
+      text-transform: uppercase;
+      font-size: 1rem;
+      font-weight: 900;
+      color: var(--primary);
 
-      #hideButtonIcon {
-        display: block;
-        width: 100%;
-        height: 100%;
-        margin: 0;
-        padding: 0;
-      }
+      display: flex;
+      align-items: center;
+      justify-content: center;
 
-      #generateForm {
-        position: relative;
-      }
+      cursor: pointer;
+    }
 
-      #buttons {
-        display: flex;
+    button:hover {
+      outline: 2px solid rgba(var(--accent-color), 1);
+    }
 
-        /*  push to bottom  */
-        margin-top: auto;
-      }
+    #hideButton {
+      width: 35px;
+      height: 35px;
+      position: absolute;
+      left: calc(100% - 35px / 2);
+      border-radius: 100%;
+      top: 10%;
+      outline: none;
+    }
 
-      .tooltip {
-        position: relative;
-        display: inline-block;
-      }
+    #hideButtonIcon {
+      display: block;
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      padding: 0;
+    }
 
-      /* Tooltip text */
-      .tooltip .tooltiptext {
-        visibility: hidden;
-        width: 300px;
-        background-color: black;
-        color: rgba(255, 255, 255, 0.65);
-        text-align: center;
-        padding: 5px;
-        border-radius: 6px;
+    #generateForm {
+      position: relative;
+      overflow-y: auto;
+      overflow-x: hidden;
+    }
 
-        /* Position the tooltip text - see examples below! */
-        position: absolute;
-        z-index: 1;
-        left: 115%;
-        opacity: 0;
-        transition: opacity 0.1s;
-      }
+    #buttons {
+      display: flex;
 
-      /* Show the tooltip text when you mouse over the tooltip container */
-      .tooltip:hover .tooltiptext {
-        opacity: 1;
-        visibility: visible;
-      }
+      /*  push to bottom  */
+      margin-top: auto;
+    }
 
-      #stylesGallery {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        overflow: scroll;
-      }
+    .tooltip {
+      position: relative;
+      display: inline-block;
+    }
 
-      .styleCard {
-        margin: 0.5rem;
-        width: 100px;
-        min-width: 100px;
-        max-width: 100px;
-      }
+    /* Tooltip text */
+    .tooltip .tooltiptext {
+      visibility: hidden;
+      width: 300px;
+      background-color: black;
+      color: rgba(255, 255, 255, 0.65);
+      text-align: center;
+      padding: 5px;
+      border-radius: 6px;
 
-      .styleCard img {
-        width: 100%;
-        border-radius: 0.2rem;
-        margin: 0;
-      }
+      /* Position the tooltip text - see examples below! */
+      position: absolute;
+      z-index: 1;
+      left: 115%;
+      opacity: 0;
+      transition: opacity 0.1s;
+    }
 
-      .styleCard span {
-        position: sticky;
-        color: rgba(255, 255, 255, 0.65);
-        text-transform: uppercase;
-        font-size: 0.8rem;
-        font-weight: 100;
-        text-overflow: ellipsis;
-        overflow: hidden;
-        white-space: nowrap;
-        margin: 0;
-        display: block;
-      }
+    /* Show the tooltip text when you mouse over the tooltip container */
+    .tooltip:hover .tooltiptext {
+      opacity: 1;
+      visibility: visible;
+    }
 
-      .styleCard:hover {
-        outline: 2px solid rgba(var(--accent-color), 1);
-        transition: outline 0.1s;
-      }
+    .slider-container {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
 
-      .cut {
-        clip-path: polygon(50% -100%, 200% 0%, 200% 200%, 50% 200%);
-      }
-    </style>
-  </head>
+    .slider {
+      width: 100%;
+    }
 
-  <body>
-    <button
-      id="hideButton"
-      type="button"
-      style="right: calc(100% - 35px / 2); left: unset"
-      onclick="handleHideForm()"
-    >
-      <div style="position: relative; margin: 0">
-        <svg
-          id="hideButtonIcon"
-          xmlns="http://www.w3.org/2000/svg"
-          xmlns:xlink="http://www.w3.org/1999/xlink"
-          id="Layer_1"
-          style="enable-background: new 0 0 32 32"
-          version="1.1"
-          viewBox="0 0 32 32"
-          xml:space="preserve"
-        >
-          <path
-            d="M4,10h24c1.104,0,2-0.896,2-2s-0.896-2-2-2H4C2.896,6,2,6.896,2,8S2.896,10,4,10z M28,14H4c-1.104,0-2,0.896-2,2  s0.896,2,2,2h24c1.104,0,2-0.896,2-2S29.104,14,28,14z M28,22H4c-1.104,0-2,0.896-2,2s0.896,2,2,2h24c1.104,0,2-0.896,2-2  S29.104,22,28,22z"
-          />
-        </svg>
+    .slider-output {
+      position: absolute;
+      margin: 0;
+      left: 50%;
+      top: 50%;
+      transform: translateX(-50%) translateY(-50%);
+      font-size: 0.8em;
+      user-select: none;
+      pointer-events: none;
+      opacity: 0.7;
+      color: rgba(var(--accent-color))
+    }
+
+    #stylesGallery {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      overflow: scroll;
+      overflow-y: hidden;
+    }
+
+    .styleCard {
+      margin: 0.5rem;
+      width: 100px;
+      min-width: 100px;
+      max-width: 100px;
+      border-radius: 0.2rem;
+      border: 0px solid;
+    }
+
+    .styleCard img {
+      width: 100%;
+      border-radius: 0.2rem;
+      margin: 0;
+    }
+
+    .styleCard span {
+      position: sticky;
+      color: rgba(255, 255, 255, 0.65);
+      text-transform: uppercase;
+      font-size: 0.8rem;
+      font-weight: 100;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      white-space: nowrap;
+      margin: 0;
+      display: block;
+    }
+
+    .styleCard:hover {
+      outline: 2px solid rgba(var(--accent-color), 1);
+      transition: outline 0.1s;
+    }
+
+    .cut {
+      clip-path: polygon(50% -100%, 200% 0%, 200% 200%, 50% 200%);
+    }
+  </style>
+</head>
+
+<body>
+  <button id="hideButton" type="button" style="right: calc(100% - 35px / 2); left: unset" onclick="handleHideForm()">
+    <div style="position: relative; margin: 0">
+      <svg id="hideButtonIcon" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+        id="Layer_1" style="enable-background: new 0 0 32 32" version="1.1" viewBox="0 0 32 32" xml:space="preserve">
+        <path
+          d="M4,10h24c1.104,0,2-0.896,2-2s-0.896-2-2-2H4C2.896,6,2,6.896,2,8S2.896,10,4,10z M28,14H4c-1.104,0-2,0.896-2,2  s0.896,2,2,2h24c1.104,0,2-0.896,2-2S29.104,14,28,14z M28,22H4c-1.104,0-2,0.896-2,2s0.896,2,2,2h24c1.104,0,2-0.896,2-2  S29.104,22,28,22z" />
+      </svg>
+    </div>
+  </button>
+  <form id="generateForm" oninput="cfgOutput.value=cfg.value; stepsOutput.value=steps.value">
+    <label>Prompt <input type="text" name="prompt" /></label>
+    <label>Negative Prompt <input type="text" name="negative" /></label>
+    <label>Style
+      <div id="stylesGallery">
+        {% for style in styles %}
+        <div class="styleCard" data-value="{{style.name}}" onmouseup="handleSelection(this)">
+          <img src="{{url_for('static', filename='thumbs/' + style.value[1] + '.webp')}}" title="{{style.name}}" />
+          <span data-value="{{style.name}}">{{style.name}}</span>
+        </div>
+        {% endfor %}
       </div>
-    </button>
-    <form id="generateForm">
-      <label>Prompt <input type="text" name="prompt" /></label>
-      <label>Negative Prompt <input type="text" name="negative" /></label>
-      <label
-        >Style
-        <div id="stylesGallery">
-          {% for style in styles %}
-          <div
-            class="styleCard"
-            data-value="{{style.name}}"
-            onmouseup="handleSelection(this)"
-          >
-            <img
-              src="{{url_for('static', filename='thumbs/' + style.value[1] + '.webp')}}"
-              title="{{style.name}}"
-            />
-            <span data-value="{{style.name}}">{{style.name}}</span>
-          </div>
-          {% endfor %}
-        </div>
-        <select name="style" style="display: none">
-          {% for style in styles %}
-          <option value="{{style.name}}">{{style.name}}</option>
-          {% endfor %}
-        </select>
-      </label>
-      <label
-        >Ratio
-        <select name="ratio">
-          {% for ratio in ratios %}
-          <option value="{{ ratio.name }}">{{ ratio.name }}</option>
-          {% endfor %}
-        </select>
-      </label>
+      <select name="style" style="display: none">
+        {% for style in styles %}
+        <option value="{{style.name}}">{{style.name}}</option>
+        {% endfor %}
+      </select>
+    </label>
+    <label>Ratio
+      <select name="ratio">
+        {% for ratio in ratios %}
+        <option value="{{ ratio.name }}">{{ ratio.name }}</option>
+        {% endfor %}
+      </select>
+    </label>
 
-      <div>
-        <div class="tooltip">
-          <span class="tooltiptext">Maximum output resolution</span>
-          <div class="checkbox">
-            <label>High Resolution</label>
-            <input type="checkbox" name="high_res" />
-          </div>
-        </div>
-        <div class="tooltip">
-          <span class="tooltiptext">Upscale image server-side</span>
-          <div class="checkbox">
-            <label>Upscale</label>
-            <input type="checkbox" name="upscale" />
-          </div>
+    <div>
+      <div class="tooltip">
+        <span class="tooltiptext">Maximum output resolution</span>
+        <div class="checkbox">
+          <label>High Resolution</label>
+          <input type="checkbox" name="high_res" />
         </div>
       </div>
       <div class="tooltip">
-        <span class="tooltiptext"
-          >The less the parameter, the more creative the output will be</span
-        >
-        <label
-          >CFG
-          <input
-            type="range"
-            name="cfg"
-            min="0"
-            max="16"
-            step="0.1"
-            value="9.5"
-        /></label>
-      </div>
-
-      <button
-        id="hideButton"
-        type="button"
-        class="cut"
-        onclick="handleHideForm()"
-      >
-        <div style="position: relative; margin: 0">
-          <svg
-            id="hideButtonIcon"
-            xmlns="http://www.w3.org/2000/svg"
-            xmlns:xlink="http://www.w3.org/1999/xlink"
-            id="Layer_1"
-            style="enable-background: new 0 0 32 32"
-            version="1.1"
-            viewBox="0 0 32 32"
-            xml:space="preserve"
-          >
-            <path
-              d="M4,10h24c1.104,0,2-0.896,2-2s-0.896-2-2-2H4C2.896,6,2,6.896,2,8S2.896,10,4,10z M28,14H4c-1.104,0-2,0.896-2,2  s0.896,2,2,2h24c1.104,0,2-0.896,2-2S29.104,14,28,14z M28,22H4c-1.104,0-2,0.896-2,2s0.896,2,2,2h24c1.104,0,2-0.896,2-2  S29.104,22,28,22z"
-            />
-          </svg>
+        <span class="tooltiptext">Upscale image server-side</span>
+        <div class="checkbox">
+          <label>Upscale</label>
+          <input type="checkbox" name="upscale" />
         </div>
-      </button>
-
-      <div id="buttons">
-        <button type="submit" id="submitButton">Generate</button>
-        <button type="button" id="downloadButton" style="display: none">
-          Download Image
-        </button>
       </div>
-    </form>
-
-    <div id="content">
-      <label id="suspend">Awaiting instructions, master...</label>
-      <div id="loader">
-        <img
-          src="https://github.com/SamHerbert/SVG-Loaders/raw/master/svg-loaders/grid.svg"
-        />
-      </div>
-      <div id="imageContainer">
-        <img id="resultImage" />
-      </div>
-      <!-- <img id="resultImage" src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwww.pngkey.com%2Fpng%2Fdetail%2F233-2332677_ega-png.png&f=1&nofb=1&ipt=eb0988cd398fae8e6604b1347b05b8c74d42859ccfadbdfa448e4c7c14e9b133&ipo=images" /> -->
     </div>
-    <script>
+    <div class="tooltip">
+      <span class="tooltiptext">The less the parameter, the more creative the output will be</span>
+      <label>CFG
+        <div class="slider-container">
+          <input class="slider" type="range" name="cfg" min="0" max="16" step="0.1" value="9.5" />
+          <output class="slider-output" name="cfgOutput" for="cfg">9.5</output>
+        </div>
+      </label>
+    </div>
+
+    <div class="tooltip">
+      <span class="tooltiptext">Generation iterations, the more the better the output, usually</span>
+      <label>Steps
+        <div class="slider-container">
+          <input class="slider" type="range" name="steps" min="1" max="150" step="1" value="30" />
+          <output class="slider-output" name="stepsOutput" for="steps">30</output>
+        </div>
+      </label>
+    </div>
+
+    <button id="hideButton" type="button" class="cut" onclick="handleHideForm()">
+      <div style="position: relative; margin: 0">
+        <svg id="hideButtonIcon" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+          id="Layer_1" style="enable-background: new 0 0 32 32" version="1.1" viewBox="0 0 32 32" xml:space="preserve">
+          <path
+            d="M4,10h24c1.104,0,2-0.896,2-2s-0.896-2-2-2H4C2.896,6,2,6.896,2,8S2.896,10,4,10z M28,14H4c-1.104,0-2,0.896-2,2  s0.896,2,2,2h24c1.104,0,2-0.896,2-2S29.104,14,28,14z M28,22H4c-1.104,0-2,0.896-2,2s0.896,2,2,2h24c1.104,0,2-0.896,2-2  S29.104,22,28,22z" />
+        </svg>
+      </div>
+    </button>
+
+    <div id="buttons">
+      <button type="submit" id="submitButton">Generate</button>
+      <button type="button" id="downloadButton" style="display: none">
+        Download Image
+      </button>
+    </div>
+  </form>
+
+  <div id="content">
+    <label id="suspend">Awaiting instructions, master...</label>
+    <div id="loader">
+      <img src="https://github.com/SamHerbert/SVG-Loaders/raw/master/svg-loaders/grid.svg" />
+    </div>
+    <div id="imageContainer">
+      <img id="resultImage" />
+    </div>
+    <!-- <img id="resultImage" src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwww.pngkey.com%2Fpng%2Fdetail%2F233-2332677_ega-png.png&f=1&nofb=1&ipt=eb0988cd398fae8e6604b1347b05b8c74d42859ccfadbdfa448e4c7c14e9b133&ipo=images" /> -->
+  </div>
+  <script>
+    const form = document.getElementById("generateForm");
+    const resultImage = document.getElementById("resultImage");
+    const downloadButton = document.getElementById("downloadButton");
+    const loader = document.getElementById("loader");
+    const submitButton = document.getElementById("submitButton");
+    const suspend = document.getElementById("suspend");
+
+    let _formData = new FormData(form);
+
+    const select = document.querySelector("select[name='style']");
+    const spans = document.querySelectorAll(".styleCard span");
+    select.addEventListener("change", () => {
+      for (let i = 0; i < spans.length; i++) {
+        if (spans[i].dataset.value === select.value) {
+          spans[i].style.color = "white";
+          spans[i].style.fontWeight = "bold";
+          spans[i].parentElement.style.outline = "2px solid rgba(var(--accent-color), 0.5)";
+        } else {
+          spans[i].style.color = "rgba(255, 255, 255, 0.65)";
+        }
+      }
+
+      const selected = document.querySelector(
+        `.styleCard[data-value='${select.value}']`
+      );
+      selected.scrollIntoView({ behavior: "smooth", block: "center" });
+    });
+
+    function handleSelection(element) {
+      const value = element.dataset.value;
+      select.value = value;
+      select.dispatchEvent(new Event("change"));
+    }
+
+    function handleHideForm() {
       const form = document.getElementById("generateForm");
-      const resultImage = document.getElementById("resultImage");
-      const downloadButton = document.getElementById("downloadButton");
-      const loader = document.getElementById("loader");
-      const submitButton = document.getElementById("submitButton");
-      const suspend = document.getElementById("suspend");
+      const hideButton = document.getElementById("hideButton");
+      const hideButtonIcon = document.getElementById("hideButtonIcon");
 
-      let _formData = new FormData(form);
+      form.classList.toggle("hidden");
+      if (form.classList.contains("hidden")) {
+        hideButtonIcon.style.transform = "rotate(180deg)";
+      } else {
+        hideButtonIcon.style.transform = "rotate(0deg)";
+      }
+    }
 
-      const select = document.querySelector("select[name='style']");
-      const spans = document.querySelectorAll(".styleCard span");
-      select.addEventListener("change", () => {
-        for (let i = 0; i < spans.length; i++) {
-          if (spans[i].dataset.value === select.value) {
-            spans[i].style.color = "white";
-            spans[i].style.fontWeight = "bold";
-          } else {
-            spans[i].style.color = "rgba(255, 255, 255, 0.65)";
-          }
+    // if resultimage src is not empty, show download button
+    resultImage.addEventListener("load", () => {
+      if (resultImage.src !== "") {
+        downloadButton.style.display = "block";
+      }
+    });
+    // Load and apply saved parameters from localStorage
+    const savedParams = JSON.parse(localStorage.getItem("imagineParams"));
+    if (savedParams) {
+      for (let key in savedParams) {
+        const input = form[key];
+        if (input) {
+          if (input.type === "checkbox") input.checked = savedParams[key];
+          else input.value = savedParams[key];
+          input.dispatchEvent(new Event("change"));
+          form.dispatchEvent(new Event("input"));
         }
+      }
+    }
 
-        const selected = document.querySelector(
-          `.styleCard[data-value='${select.value}']`
-        );
-        selected.scrollIntoView({ behavior: "smooth", block: "center" });
+    form.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      downloadButton.style.display = "none";
+      // disable button, change its text to "Generating..."
+
+      submitButton.disabled = true;
+      submitButton.innerText = "Generating...";
+      submitButton.style.cursor = "default";
+
+      resultImage.style.filter = "blur(20px)";
+      resultImage.style.opacity = 0;
+      suspend.style.opacity = 0;
+
+      loader.style.opacity = 0.1;
+
+      function dismiss() {
+        submitButton.disabled = false;
+        submitButton.innerText = "Generate";
+        submitButton.style.cursor = "pointer";
+        resultImage.style.opacity = 1;
+        resultImage.style.filter = "blur(0px)";
+        loader.style.opacity = 0;
+      }
+
+      const formData = new FormData(form);
+
+      // Save parameters to localStorage
+      const paramsToSave = {};
+      for (const key of formData.keys()) {
+        const input = form[key];
+        paramsToSave[key] =
+          input.type === "checkbox" ? input.checked : input.value;
+      }
+      localStorage.setItem("imagineParams", JSON.stringify(paramsToSave));
+
+      const response = await fetch("/", {
+        method: "POST",
+        body: formData,
       });
+      _formData = formData;
 
-      function handleSelection(element) {
-        const value = element.dataset.value;
-        select.value = value;
-        select.dispatchEvent(new Event("change"));
-      }
-
-      function handleHideForm() {
-        const form = document.getElementById("generateForm");
-        const hideButton = document.getElementById("hideButton");
-        const hideButtonIcon = document.getElementById("hideButtonIcon");
-
-        form.classList.toggle("hidden");
-        if (form.classList.contains("hidden")) {
-          hideButtonIcon.style.transform = "rotate(180deg)";
-        } else {
-          hideButtonIcon.style.transform = "rotate(0deg)";
-        }
-      }
-
-      // if resultimage src is not empty, show download button
-      resultImage.addEventListener("load", () => {
-        if (resultImage.src !== "") {
-          downloadButton.style.display = "block";
-        }
-      });
-      // Load and apply saved parameters from localStorage
-      const savedParams = JSON.parse(localStorage.getItem("imagineParams"));
-      if (savedParams) {
-        for (let key in savedParams) {
-          const input = form[key];
-          if (input) {
-            if (input.type === "checkbox") input.checked = savedParams[key];
-            else input.value = savedParams[key];
-            input.dispatchEvent(new Event("change"));
-          }
-        }
-      }
-
-      form.addEventListener("submit", async (event) => {
-        event.preventDefault();
-        downloadButton.style.display = "none";
-        // disable button, change its text to "Generating..."
-
-        submitButton.disabled = true;
-        submitButton.innerText = "Generating...";
-        submitButton.style.cursor = "default";
-
-        resultImage.style.filter = "blur(20px)";
-        resultImage.style.opacity = 0;
-        suspend.style.opacity = 0;
-
-        loader.style.opacity = 0.1;
-
-        function dismiss() {
-          submitButton.disabled = false;
-          submitButton.innerText = "Generate";
-          submitButton.style.cursor = "pointer";
-          resultImage.style.opacity = 1;
-          resultImage.style.filter = "blur(0px)";
-          loader.style.opacity = 0;
-        }
-
-        const formData = new FormData(form);
-
-        // Save parameters to localStorage
-        const paramsToSave = {};
-        for (const key of formData.keys()) {
-          const input = form[key];
-          paramsToSave[key] =
-            input.type === "checkbox" ? input.checked : input.value;
-        }
-        localStorage.setItem("imagineParams", JSON.stringify(paramsToSave));
-
-        const response = await fetch("/", {
-          method: "POST",
-          body: formData,
-        });
-        _formData = formData;
-
-        if (response.ok) {
-          const result = await response.json().finally(() => {
-            dismiss();
-          });
-
-          resultImage.src = `data:image/png;base64,${result.img_data}`;
-        } else {
-          alert("An error occurred while generating the image.");
+      if (response.ok) {
+        const result = await response.json().finally(() => {
           dismiss();
-        }
-      });
+        });
 
-      downloadButton.addEventListener("click", () => {
-        const a = document.createElement("a");
-        a.href = resultImage.src;
-        const filename = `imagine_${Date.now()}_${_formData
-          .get("prompt")
-          .slice(0, 15)}_${_formData.get("style")}_${_formData.get("cfg")}.png`;
-        a.download = filename;
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-      });
-    </script>
-  </body>
+        resultImage.src = `data:image/png;base64,${result.img_data}`;
+      } else {
+        alert("An error occurred while generating the image.");
+        dismiss();
+      }
+    });
+
+    downloadButton.addEventListener("click", () => {
+      const a = document.createElement("a");
+      a.href = resultImage.src;
+      const filename = `imagine_${Date.now()}_${_formData
+        .get("prompt")
+        .slice(0, 15)}_${_formData.get("style")}_${_formData.get("cfg")}.png`;
+      a.download = filename;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+    });
+  </script>
+</body>
+
 </html>
